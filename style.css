@@ -15,30 +15,40 @@
 body {
   font-family: "Cormorant Garamond", serif;
   color: white;
+  background-color: #f4eee0; /* Couleur de secours */
 }
 
 /* HERO */
 .hero {
   position: relative;
   height: 100vh;
-  overflow: hidden;
+  width: 100vw;
+  overflow: hidden; /* Indispensable pour masquer le surplus du scale */
 }
 
-/* Image animée */
+/* Vidéo Arrière-plan (Statique mais avec mouvement interne) */
 .bg {
   position: absolute;
-  inset: -5%;
-  background-image: url("france-bg_1.jpg");
-  background-size: cover;
-  background-position: center;
-  animation: breathe 40s ease-in-out infinite;
-  will-change: transform;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: cover;
+  z-index: 1;
+  
+  /* On enlève l'animation 'breathe' et on fixe le scale */
+  /* Le scale(1.05) zoom juste assez pour faire sortir la ligne noire de l'écran */
+  transform: translate(-50%, -50%) scale(1.05);
+  
+  /* Petit fondu à l'ouverture du site pour l'élégance */
+  animation: fadeIn 2s ease-in-out;
 }
 
-@keyframes breathe {
-  0% { transform: scale(1) translate(0, 0); }
-  50% { transform: scale(1.03) translate(-1%, -1%); }
-  100% { transform: scale(1) translate(0, 0); }
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* Contenu */
@@ -52,11 +62,14 @@ body {
   justify-content: center;
   text-align: center;
   padding: 2rem;
+  /* Optionnel : un léger filtre pour aider la lecture */
+  background: rgba(0, 0, 0, 0.05); 
 }
 
-/* TITRE – Winter Arthur */
+/* TITRE */
 h1 {
-  font-family: "Winter Arthur", "Cormorant Garamond", serif;
+  /* Correction du nom pour correspondre au @font-face */
+  font-family: "Winterthur", "Cormorant Garamond", serif;
   font-size: clamp(2.6rem, 6vw, 4.2rem);
   font-weight: 400;
   letter-spacing: 0.12em;
@@ -70,11 +83,4 @@ p {
   letter-spacing: 0.28em;
   text-transform: uppercase;
   opacity: 0.9;
-}
-
-/* Mobile : animation encore plus douce */
-@media (max-width: 768px) {
-  .bg {
-    animation-duration: 60s;
-  }
 }
