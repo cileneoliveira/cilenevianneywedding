@@ -3,90 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mariage en Provence | Cilene & Vianney</title>
+    <title>Mariage Cilene & Vianney | Provence</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="video-container">
+    <div class="video-background">
         <video autoplay muted loop playsinline id="bgVideo">
             <source src="background.mp4" type="video/mp4">
-            Votre navigateur ne supporte pas la vidéo.
         </video>
-        <div class="video-overlay"></div>
+        <div class="overlay"></div>
     </div>
 
     <nav class="top-nav">
-        <div class="nav-links">
-            <span class="active">FRANCE</span>
-            <span class="separator">|</span>
-            <a href="../bresil/index.html">BRÉSIL</a>
-        </div>
+        <span class="active">FRANCE</span>
+        <span class="sep">|</span>
+        <a href="../bresil/index.html">BRASIL</a>
     </nav>
 
-    <main class="content-wrapper">
-        
-        <section class="hero-section">
-            <h1 class="main-title">Provence</h1>
-            <p class="date">Juillet 2027</p>
-            <div class="scroll-indicator">↓</div>
+    <main>
+        <section class="hero">
+            <h1 class="names">Cilene &<br>Vianney</h1>
+            <p class="subtitle">Provence &bull; Juillet 2027</p>
         </section>
 
-        <section class="timeline-section">
-            <h2>Le Programme</h2>
-            
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="time">16:00</div>
-                    <div class="marker"></div>
-                    <div class="details">
-                        <h3>Cérémonie Laïque</h3>
-                        <p>Dans les jardins de l'Oliveraie</p>
+        <section class="program">
+            <div class="program-container">
+                <h2>Le Week-end</h2>
+                
+                <div class="schedule-grid">
+                    <div class="day-block">
+                        <h3 class="day-title">Vendredi 16</h3>
+                        <p class="event">Apéro de bienvenue</p>
+                    </div>
+
+                    <div class="day-block main-day">
+                        <h3 class="day-title">Samedi 17</h3>
+                        <div class="event-details">
+                            <span class="highlight">Cérémonie</span>
+                            <span class="separator">&bull;</span>
+                            <span class="highlight">Vin d'honneur</span>
+                            <span class="separator">&bull;</span>
+                            <span class="highlight">Soirée</span>
+                        </div>
+                    </div>
+
+                    <div class="day-block">
+                        <h3 class="day-title">Dimanche 18</h3>
+                        <p class="event">Déjeuner au bord de la piscine</p>
                     </div>
                 </div>
 
-                <div class="timeline-item">
-                    <div class="time">17:30</div>
-                    <div class="marker"></div>
-                    <div class="details">
-                        <h3>Cocktail & Jazz</h3>
-                        <p>Au bord de la piscine</p>
-                    </div>
+                <div class="location-info">
+                    <p>Château de Vaucouleurs</p>
+                    <p>Puget-sur-Argens 83480</p>
                 </div>
 
-                <div class="timeline-item">
-                    <div class="time">20:00</div>
-                    <div class="marker"></div>
-                    <div class="details">
-                        <h3>Dîner sous les étoiles</h3>
-                        <p>Gastronomie provençale</p>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="time">23:00</div>
-                    <div class="marker"></div>
-                    <div class="details">
-                        <h3>La Fête</h3>
-                        <p>Jusqu'au bout de la nuit</p>
-                    </div>
-                </div>
+                <a href="mailto:rsvp@cilenevianney.com" class="rsvp-btn">RSVP avant le 15 Mai 2027</a>
             </div>
         </section>
-
-        <section class="info-section">
-            <h2>Détails Pratiques</h2>
-            <p>Code vestimentaire : Summer Chic</p>
-            <br>
-            <a href="#" class="cta-button">Répondre à l'invitation</a>
-        </section>
-
     </main>
 
     <script>
-        // On ralentit la vidéo à 70% de sa vitesse normale
-        document.getElementById('bgVideo').playbackRate = 0.7;
+        document.addEventListener('DOMContentLoaded', function() {
+            var video = document.getElementById('bgVideo');
+            if(video) { video.playbackRate = 0.7; }
+        });
     </script>
-
 </body>
 </html>
