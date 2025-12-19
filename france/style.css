@@ -1,250 +1,192 @@
-/* --- 1. CONFIGURATION GÉNÉRALE & FONTS --- */
+/* --- FONTS --- */
 @font-face {
     font-family: 'Winterthur';
     src: url('WinterthurCondensed.ttf') format('truetype');
+    /* Assurez-vous que le fichier ttf est bien là */
 }
 
 :root {
-    --bg-beige: #F5F0E6; /* Beige Provence doux */
-    --bg-white: #FFFFFF;
-    --text-dark: #2A2A2A;
-    --text-gold: #C5A059; /* Doré mat */
-    --font-title: 'Winterthur', serif;
-    --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Fallback propre */
+    --font-title: 'Winterthur', serif; /* Votre police titre */
+    --font-text: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --col-gold: #C5A059; 
+    --col-dark: #1a1a1a;
+    --col-cream: #F5F0E6;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+/* --- RESET & BASE --- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-    font-family: var(--font-body);
-    color: var(--text-dark);
-    overflow-x: hidden;
+    font-family: var(--font-text);
+    color: var(--col-dark);
+    /* Pas de couleur de fond ici pour laisser voir la vidéo si besoin */
 }
 
-/* --- 2. VIDÉO BACKGROUND (LA CORRECTION DU BUG) --- */
-.video-container {
-    position: fixed; /* Reste fixe quand on scrolle */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1; /* CRUCIAL: Toujours derrière tout le reste */
+/* --- VIDEO BACKGROUND (La partie critique) --- */
+.video-background {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -10; /* Très loin derrière */
     overflow: hidden;
-    background-color: var(--bg-beige); /* Couleur de fond si la vidéo charge mal */
+    background: #000; /* Fond noir temporaire si la vidéo charge */
 }
 
 video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Remplit l'écran sans bandes noires */
-    display: block;
-}
-
-.video-overlay {
+    min-width: 100%; min-height: 100%;
+    width: auto; height: auto;
     position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.15); /* Légère teinte pour lisibilité du texte blanc */
-    z-index: 0;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
 }
 
-/* --- 3. NAVIGATION --- */
+.overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.2); /* Léger voile pour lire le texte blanc */
+}
+
+/* --- NAVIGATION --- */
 .top-nav {
     position: fixed;
-    top: 0;
-    width: 100%;
+    top: 0; width: 100%;
     padding: 30px;
-    display: flex;
-    justify-content: center;
+    text-align: center;
     z-index: 100;
-    mix-blend-mode: difference; /* Astuce design: le texte change de couleur selon le fond */
     color: white;
-}
-
-.nav-links a, .nav-links span {
-    text-decoration: none;
-    color: white;
-    font-family: var(--font-body);
-    font-weight: 300;
     letter-spacing: 2px;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     text-transform: uppercase;
 }
 
-.nav-links .separator { margin: 0 15px; opacity: 0.5; }
-.nav-links .active { font-weight: 700; border-bottom: 1px solid white; padding-bottom: 2px; }
+.top-nav a { color: white; text-decoration: none; opacity: 0.7; transition: 0.3s; }
+.top-nav a:hover { opacity: 1; }
+.top-nav .active { font-weight: bold; border-bottom: 1px solid white; }
+.top-nav .sep { margin: 0 15px; opacity: 0.5; }
 
-/* --- 4. SECTIONS & HERO --- */
-.content-wrapper {
-    position: relative;
-    z-index: 1; /* Au-dessus de la vidéo */
-}
-
-.hero-section {
-    height: 100vh; /* Prend tout l'écran */
+/* --- HERO (Titre sur vidéo) --- */
+.hero {
+    height: 100vh; /* Plein écran */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
     color: white;
-    text-align: center;
 }
 
-.main-title {
+.names {
     font-family: var(--font-title);
-    font-size: 5rem;
+    font-size: 5rem; /* Très grand */
+    line-height: 1;
+    margin-bottom: 20px;
     font-weight: normal;
-    letter-spacing: 5px;
-    margin-bottom: 10px;
 }
 
-.date {
-    font-size: 1.2rem;
-    letter-spacing: 3px;
+.subtitle {
+    font-size: 1.1rem;
     text-transform: uppercase;
+    letter-spacing: 4px;
 }
 
-.scroll-indicator {
-    position: absolute;
-    bottom: 40px;
-    animation: bounce 2s infinite;
-}
-
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-    40% {transform: translateY(-10px);}
-    60% {transform: translateY(-5px);}
-}
-
-/* --- 5. TIMELINE (STYLE LUXE) --- */
-.timeline-section {
-    background-color: var(--bg-beige);
+/* --- SECTION PROGRAMME (Style Éditorial) --- */
+.program {
+    background-color: var(--col-cream); /* Le fameux beige du faire-part */
     padding: 100px 20px;
-    min-height: 80vh;
+    position: relative;
+    z-index: 1;
+}
+
+.program-container {
+    max-width: 800px;
+    margin: 0 auto;
     text-align: center;
 }
 
-.timeline-section h2, .info-section h2 {
+.program h2 {
     font-family: var(--font-title);
     font-size: 3rem;
     margin-bottom: 60px;
-    color: var(--text-dark);
+    color: var(--col-dark);
 }
 
-.timeline {
-    position: relative;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-/* La ligne verticale centrale */
-.timeline::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    background: #ccc;
-    transform: translateX(-50%);
-}
-
-.timeline-item {
-    position: relative;
-    margin-bottom: 60px;
+/* Grille des jours */
+.schedule-grid {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    gap: 50px; /* Espace entre les jours */
+    margin-bottom: 80px;
 }
 
-.marker {
-    width: 12px;
-    height: 12px;
-    background: var(--bg-beige);
-    border: 1px solid var(--text-dark);
-    border-radius: 50%;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 2;
+.day-block {
+    position: relative;
+    padding: 20px 0;
 }
 
-.time {
-    position: absolute;
-    left: 0;
-    width: 45%;
-    text-align: right;
-    font-weight: bold;
+/* Optionnel : petite ligne de séparation fine entre les jours */
+.day-block:not(:last-child)::after {
+    content: "";
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: #ccc;
+    margin: 40px auto 0;
+}
+
+.day-title {
     font-family: var(--font-title);
-    font-size: 1.5rem;
-    padding-right: 30px;
+    font-size: 2.2rem;
+    color: var(--col-gold); /* Rappel du doré du faire-part */
+    margin-bottom: 10px;
+    font-weight: normal;
 }
 
-.details {
-    position: absolute;
-    right: 0;
-    width: 45%;
-    text-align: left;
-    padding-left: 30px;
+.event {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: #555;
 }
 
-.details h3 {
-    font-size: 1rem;
+.event-details {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 10px;
+}
+
+.separator { margin: 0 10px; color: var(--col-gold); }
+
+/* --- FOOTER INFO --- */
+.location-info {
+    margin-bottom: 50px;
+    font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 2px;
-    margin-bottom: 5px;
+    line-height: 1.6;
 }
 
-.details p {
-    font-size: 0.9rem;
-    color: #666;
-    font-style: italic;
-}
-
-/* --- 6. SECTION INFO --- */
-.info-section {
-    background-color: var(--bg-white);
-    padding: 100px 20px;
-    text-align: center;
-}
-
-.cta-button {
+.rsvp-btn {
     display: inline-block;
-    border: 1px solid var(--text-dark);
+    border: 1px solid var(--col-dark);
     padding: 15px 40px;
     text-decoration: none;
-    color: var(--text-dark);
+    color: var(--col-dark);
     text-transform: uppercase;
-    letter-spacing: 2px;
     font-size: 0.8rem;
+    letter-spacing: 2px;
     transition: all 0.3s ease;
 }
 
-.cta-button:hover {
-    background: var(--text-dark);
+.rsvp-btn:hover {
+    background: var(--col-dark);
     color: white;
 }
 
-/* --- MOBILE RESPONSIVE --- */
+/* --- MOBILE --- */
 @media (max-width: 768px) {
-    .main-title { font-size: 3.5rem; }
-    
-    .timeline::before { left: 20px; } /* Ligne à gauche sur mobile */
-    .marker { left: 20px; }
-    
-    .timeline-item {
-        flex-direction: column;
-        align-items: flex-start;
-        margin-left: 50px;
-        margin-bottom: 40px;
-    }
-    
-    .time, .details {
-        position: relative;
-        width: 100%;
-        text-align: left;
-        padding: 0;
-    }
-    
-    .time { margin-bottom: 5px; color: var(--text-gold); }
+    .names { font-size: 3.5rem; }
+    .day-title { font-size: 1.8rem; }
+    .event-details { font-size: 0.9rem; display: flex; flex-direction: column; gap: 5px; }
+    .separator { display: none; } /* On cache les puces sur mobile */
 }
