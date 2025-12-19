@@ -1,0 +1,73 @@
+/* Reset minimal */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Cormorant Garamond", serif;
+  color: white;
+}
+
+/* HERO */
+.hero {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Image animée */
+.bg {
+  position: absolute;
+  inset: -5%;
+  background-image: url("france-bg_1.jpg");
+  background-size: cover;
+  background-position: center;
+  animation: breathe 40s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes breathe {
+  0% { transform: scale(1) translate(0, 0); }
+  50% { transform: scale(1.03) translate(-1%, -1%); }
+  100% { transform: scale(1) translate(0, 0); }
+}
+
+/* Contenu */
+.content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+/* TITRE – Winter Arthur */
+h1 {
+  font-family: "Winter Arthur", "Cormorant Garamond", serif;
+  font-size: clamp(2.6rem, 6vw, 4.2rem);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* SOUS-TITRE */
+p {
+  margin-top: 1.2rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+/* Mobile : animation encore plus douce */
+@media (max-width: 768px) {
+  .bg {
+    animation-duration: 60s;
+  }
+}
