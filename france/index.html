@@ -4,7 +4,181 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mariage Cilene & Vianney | Provence</title>
-    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* --- 1. IMPORTATION POLICE --- */
+        @font-face {
+            font-family: 'Winterthur';
+            /* Assurez-vous que le fichier s'appelle exactement comme ça */
+            src: url('WinterthurCondensed.ttf') format('truetype');
+        }
+
+        /* --- 2. VARIABLES & BASES --- */
+        :root {
+            --font-title: 'Winterthur', serif; 
+            --font-text: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --col-gold: #C5A059; 
+            --col-dark: #1a1a1a;
+            --col-cream: #F5F0E6;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-text);
+            color: var(--col-dark);
+            overflow-x: hidden; /* Empêche le scroll horizontal */
+        }
+
+        /* --- 3. VIDEO BACKGROUND (CORRECTIF) --- */
+        .video-background {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: -999; /* Tout au fond */
+            background-color: #000; /* Fond noir en attendant la vidéo */
+        }
+
+        video {
+            width: 100%; height: 100%;
+            object-fit: cover; /* Remplit l'écran sans déformer */
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0; left: 0; 
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.25); /* Assombrit légèrement pour lire le texte */
+        }
+
+        /* --- 4. NAVIGATION --- */
+        .top-nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 30px;
+            text-align: center;
+            z-index: 100;
+            color: white;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .top-nav a { color: white; text-decoration: none; opacity: 0.7; transition: 0.3s; }
+        .top-nav a:hover { opacity: 1; }
+        .top-nav .active { font-weight: bold; border-bottom: 1px solid white; padding-bottom: 3px; }
+        .top-nav .sep { margin: 0 15px; opacity: 0.5; }
+
+        /* --- 5. HERO (TITRE) --- */
+        .hero {
+            height: 100vh; /* 100% de la hauteur de l'écran */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+
+        .names {
+            font-family: var(--font-title);
+            font-size: 5rem; /* Taille ordinateur */
+            line-height: 0.9;
+            margin-bottom: 20px;
+            font-weight: normal;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+
+        /* --- 6. PROGRAMME (LOOK MAGAZINE) --- */
+        .program {
+            background-color: var(--col-cream);
+            padding: 80px 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .program-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        h2.section-title {
+            font-family: var(--font-title);
+            font-size: 3rem;
+            margin-bottom: 60px;
+            color: var(--col-dark);
+        }
+
+        /* Grille des jours */
+        .day-block {
+            margin-bottom: 50px;
+            padding-bottom: 50px;
+            border-bottom: 1px solid #dcdcdc;
+        }
+        .day-block:last-child { border-bottom: none; }
+
+        .day-title {
+            font-family: var(--font-title);
+            font-size: 2.5rem;
+            color: var(--col-gold);
+            margin-bottom: 15px;
+            font-weight: normal;
+        }
+
+        .event-details {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #444;
+            line-height: 1.6;
+        }
+        
+        .event-sub {
+            display: block;
+            font-size: 0.9rem;
+            font-style: italic;
+            text-transform: none;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* --- 7. PIED DE PAGE --- */
+        .location-info {
+            margin-top: 60px;
+            margin-bottom: 40px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1.8;
+        }
+
+        .rsvp-btn {
+            display: inline-block;
+            border: 1px solid var(--col-dark);
+            padding: 15px 50px;
+            text-decoration: none;
+            color: var(--col-dark);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+        }
+        .rsvp-btn:hover { background: var(--col-dark); color: white; }
+
+        /* --- MOBILE --- */
+        @media (max-width: 768px) {
+            .names { font-size: 3.5rem; }
+            .day-title { font-size: 2rem; }
+            .event-details { font-size: 0.9rem; }
+            .top-nav { padding: 20px; font-size: 0.75rem; }
+        }
+    </style>
 </head>
 <body>
 
@@ -21,54 +195,53 @@
         <a href="../bresil/index.html">BRASIL</a>
     </nav>
 
-    <main>
-        <section class="hero">
-            <h1 class="names">Cilene &<br>Vianney</h1>
-            <p class="subtitle">Provence &bull; Juillet 2027</p>
-        </section>
+    <header class="hero">
+        <h1 class="names">Cilene &<br>Vianney</h1>
+        <p class="subtitle">Provence &bull; Juillet 2027</p>
+    </header>
 
-        <section class="program">
-            <div class="program-container">
-                <h2>Le Week-end</h2>
-                
-                <div class="schedule-grid">
-                    <div class="day-block">
-                        <h3 class="day-title">Vendredi 16</h3>
-                        <p class="event">Apéro de bienvenue</p>
-                    </div>
-
-                    <div class="day-block main-day">
-                        <h3 class="day-title">Samedi 17</h3>
-                        <div class="event-details">
-                            <span class="highlight">Cérémonie</span>
-                            <span class="separator">&bull;</span>
-                            <span class="highlight">Vin d'honneur</span>
-                            <span class="separator">&bull;</span>
-                            <span class="highlight">Soirée</span>
-                        </div>
-                    </div>
-
-                    <div class="day-block">
-                        <h3 class="day-title">Dimanche 18</h3>
-                        <p class="event">Déjeuner au bord de la piscine</p>
-                    </div>
+    <section class="program">
+        <div class="program-container">
+            <h2 class="section-title">Le Week-end</h2>
+            
+            <div class="day-block">
+                <h3 class="day-title">Vendredi 16</h3>
+                <div class="event-details">
+                    Apéro de bienvenue
                 </div>
-
-                <div class="location-info">
-                    <p>Château de Vaucouleurs</p>
-                    <p>Puget-sur-Argens 83480</p>
-                </div>
-
-                <a href="mailto:rsvp@cilenevianney.com" class="rsvp-btn">RSVP avant le 15 Mai 2027</a>
             </div>
-        </section>
-    </main>
+
+            <div class="day-block">
+                <h3 class="day-title">Samedi 17</h3>
+                <div class="event-details">
+                    Cérémonie &bull; Vin d'honneur &bull; Soirée
+                    <span class="event-sub">Jusqu'au bout de la nuit</span>
+                </div>
+            </div>
+
+            <div class="day-block">
+                <h3 class="day-title">Dimanche 18</h3>
+                <div class="event-details">
+                    Déjeuner
+                    <span class="event-sub">Au bord de la piscine</span>
+                </div>
+            </div>
+
+            <div class="location-info">
+                Château de Vaucouleurs<br>
+                Puget-sur-Argens 83480
+            </div>
+
+            <a href="mailto:rsvp@cilenevianney.com" class="rsvp-btn">RSVP avant le 15 Mai 2027</a>
+        </div>
+    </section>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var video = document.getElementById('bgVideo');
-            if(video) { video.playbackRate = 0.7; }
+        document.addEventListener("DOMContentLoaded", function() {
+            var vid = document.getElementById("bgVideo");
+            if(vid) vid.playbackRate = 0.7; // Ralenti à 70%
         });
     </script>
+
 </body>
 </html>
